@@ -1,12 +1,15 @@
 require.config({
   shim: {
-
+    palette: {
+      exports: 'palette'
+    }
   },
   paths: {
-    requirejs: "bower_components/requirejs/require",
+    require: "bower_components/requirejs/require",
     jquery: "bower_components/jquery/dist/jquery",
     chance: "bower_components/chance/chance",
-    moment: "bower_components/momentjs/moment"
+    moment: "bower_components/momentjs/moment",
+    palette: "scripts/palette"
   },
   packages: [
 
