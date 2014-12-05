@@ -7,14 +7,20 @@
 	<script src="config.js"></script>
 
 	<link rel="stylesheet" type="text/css" href="style.css">
+
+	<meta name="viewport" content="width=500, initial-scale=1">
 </head>
 <body>
 
-<div id="where-to-go"></div>
+<div id="content">
+	<div id="where-to-go"></div>
 
-<canvas id="canvas" width="400" height="400">
-This text is displayed if your browser does not support HTML5 Canvas.
-</canvas>
+	<canvas id="canvas" class="clickable" width="420" height="400">
+	:( Your browser does not support HTML5 Canvas
+	</canvas>
+
+	<div id="canvas-label">Click wheel to spin</div>
+</div>
 
 </body>
 <script src="scripts/main.js"></script>
