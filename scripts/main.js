@@ -4,26 +4,20 @@ require(["jquery", "chance", "moment", "palette", "jquery.easing", "underscore"]
 		return a + b;
 	};
 
-	function angle_chosen(values, index) {
-		if (index > values.length) {
-			throw new Error("Index out of bounds");
-		}
-		var total = _.reduce(values, Math.sum, 0);
-		var partial_exclusive = _.reduce(values.slice(0, index), Math.sum, 0);
-		var partial_inclusive = partial_exclusive + values[index];
-
-		var angle = (partial_exclusive + (partial_inclusive - partial_exclusive) / 2) / total * Math.TWO_PI;
-
-		return angle;
-	}
-
-	function plot_wheel(values, labels, colors, canvas, rotation) {
+	/**
+	 * Plot the wheel of fortune
+	 * @param {Array} arc_widths - The arc widths
+	 * @param {Array} labels - The arc labels
+	 * @param {Array} colors - The arc colors
+	 * @param {Canvas} canvas - The canvas to plot on
+	 * @param {number} rotation - The rotation of the wheel in radians
+	 */
+	function plot_wheel(arc_widths, labels, colors, canvas, rotation) {
 		rotation = typeof rotation !== 'undefined' ? rotation : 0;
 
 		var canvas;
 		var ctx;
 		var acr_start = 0;
-		var values_sum = _.reduce(values, Math.sum, 0);
 		var radius = 200;
 		var wheel_center_x = 200;
 		var wheel_center_y = 200;
@@ -36,11 +30,11 @@ require(["jquery", "chance", "moment", "palette", "jquery.easing", "underscore"]
 		ctx.rotate(rotation);
 		ctx.translate(-wheel_center_x, -wheel_center_y);
 
-		for (var i = 0; i < values.length; i++) {
+		for (var i = 0; i < arc_widths.length; i++) {
 			ctx.fillStyle = "#" + colors[i];
 			ctx.beginPath();
 			ctx.moveTo(wheel_center_x, wheel_center_y);
-			var arc_end = acr_start + (Math.PI*2*(values[i] / values_sum))
+			var arc_end = acr_start + arc_widths[i];
 			ctx.arc(wheel_center_x, wheel_center_y, radius, acr_start, arc_end, false);
 			ctx.lineTo(wheel_center_x, wheel_center_y);
 			ctx.fill();
@@ -68,7 +62,13 @@ require(["jquery", "chance", "moment", "palette", "jquery.easing", "underscore"]
 	    ctx.stroke();
 	}
 
-	function init_wheel(locations, chosen_location, canvas_el) {
+	/**
+	 * Initialize the Wheel
+	 * @param {Array} locations - An array of objects which have a fitness and location property
+	 * @param {number} index - The index if the location to stop rotation on
+	 * @param {jQuery.fn.init} canvas - The canvas element in the DOM slected using $()
+	 */
+	function init_wheel(locations, index, canvas_el) {
 		var values = _.map( locations, function( val ) {
 				return val.fitness;
 			});
@@ -78,9 +78,16 @@ require(["jquery", "chance", "moment", "palette", "jquery.easing", "underscore"]
 		var colors = palette(['tol-rainbow'], locations.length);
 
 		var animation_duration = 10000; // in ms
-		var rotation_max = Math.TWO_PI * 10 + (Math.TWO_PI - angle_chosen(values, chosen_location));
+		var values_sum = _.reduce(values, Math.sum, 0);
+		var arc_widths = _.map(values, function(value) { return Math.TWO_PI * (value / values_sum); });
 
-		plot_wheel(values, labels, colors, canvas_el.get(0), 0);
+		var partial_exclusive = _.reduce(arc_widths.slice(0, index), Math.sum, 0);
+		var partial_inclusive = partial_exclusive + arc_widths[index];
+		var angle_selected = partial_exclusive + (partial_inclusive - partial_exclusive) / 2;
+
+		var rotation_max = Math.TWO_PI * 10 + (Math.TWO_PI - angle_selected);
+
+		plot_wheel(arc_widths, labels, colors, canvas_el.get(0), 0);
 		canvas_el.addClass("clickable");
 
 		canvas_el.on( "click", function() {
@@ -94,7 +101,7 @@ require(["jquery", "chance", "moment", "palette", "jquery.easing", "underscore"]
 				var time = moment().diff(animation_start);
 				var easing = jQuery.easing.easeOutCirc(null, time, 0, rotation_max, animation_duration);
 				var rotation = easing % Math.TWO_PI;
-				plot_wheel(values, labels, colors, canvas_el.get(0), rotation);
+				plot_wheel(arc_widths, labels, colors, canvas_el.get(0), rotation);
 			}, 10);
 
 			setTimeout(function() {
@@ -104,6 +111,11 @@ require(["jquery", "chance", "moment", "palette", "jquery.easing", "underscore"]
 		});
 	}
 
+	/**
+	 * Roulette Wheel selection
+	 * @param {Array} fitness - The fitness values.
+	 * @param {Chance} chance - The rng to use.
+	 */
 	function roulette_wheel_selection(fitness, chance) {
 		chance = typeof chance !== 'undefined' ? chance : new Chance();
 		var rand = chance.integer({min: 1, max: _.reduce(fitness, Math.sum, 0)});
