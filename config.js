@@ -3,8 +3,10 @@ require.config({
     palette: {
       exports: 'palette'
     },
-    "jquery.easing": {
-      deps: ["jquery"]
+    'jquery.easing': {
+      deps: [
+        'jquery'
+      ]
     }
   },
   paths: {
@@ -14,8 +16,7 @@ require.config({
     moment: 'bower_components/momentjs/moment',
     palette: 'scripts/palette',
     'jquery.easing': 'bower_components/jquery.easing/js/jquery.easing',
-    momentjs: 'bower_components/momentjs/moment',
-    requirejs: 'bower_components/requirejs/require'
+    underscore: 'bower_components/underscore/underscore'
   },
   packages: [
 
