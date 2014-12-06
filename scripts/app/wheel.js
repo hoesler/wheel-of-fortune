@@ -1,4 +1,4 @@
-define(["jquery", "chance", "moment", "jquery.easing", "underscore", "scripts/math"],
+define(["jquery", "chance", "moment", "jquery.easing", "underscore", "scripts/helper/math"],
 	function($, Chance, moment, easing, _, math) {	
 
 	/**

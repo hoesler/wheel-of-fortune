@@ -1,4 +1,4 @@
-require(["jquery", "chance", "moment", "underscore", "palette", "scripts/wheel"],
+require(["jquery", "chance", "moment", "underscore", "palette", "scripts/app/wheel"],
 	function($, Chance, moment, _, palette, Wheel) {
 		
 	// Init canvas
