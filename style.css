@@ -1,3 +1,8 @@
+body {
+	background-color: #171811;
+	color: #ffffff;
+}
+
 #content {
 	width: 420px;
 	margin: 0 auto 0 auto;
