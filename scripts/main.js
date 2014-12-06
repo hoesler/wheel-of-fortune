@@ -1,5 +1,5 @@
-require(["jquery", "chance", "moment", "underscore", "scripts/wheel"],
-	function($, Chance, moment, _, Wheel) {
+require(["jquery", "chance", "moment", "underscore", "palette", "scripts/wheel"],
+	function($, Chance, moment, _, palette, Wheel) {
 		
 	// Init canvas
 	var canvas_el = $("#canvas");
