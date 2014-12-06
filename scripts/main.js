@@ -34,7 +34,7 @@ require(["jquery", "chance", "moment", "underscore", "scripts/wheel"],
 		var fixed_random = new Chance(now.year() * 1000 + now.dayOfYear()).random();
 		var chance = new Chance(function() { return fixed_random; });
 
-		new Wheel(canvas_el, values, labels, colors, chance).render();
+		new Wheel(canvas_el, values, labels, colors, chance).init();
 
 	}).fail(function() {
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
