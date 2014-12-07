@@ -18,7 +18,7 @@ define(["chance", "underscore"],
 				var tmp = 0;
 				var selected_index = -1;
 				for (i = 0; i < fitness.length; i++) {
-					tmp += fitness[i]
+					tmp += fitness[i];
 					if (tmp >= rand) {
 						selected_index = i;
 						break;
@@ -26,6 +26,6 @@ define(["chance", "underscore"],
 				}
 				return selected_index;
 			}
-		}
+		};
 	}
 );

@@ -16,7 +16,7 @@ define(["jquery", "chance", "moment", "jquery.easing", "underscore", "scripts/he
 		this.colors = colors;
 		this.animation_duration = 10000; // in ms
 		this.chance = typeof chance !== 'undefined' ? chance : new Chance();
-	}
+	};
 
 	/**
 	 * Render the wheel
