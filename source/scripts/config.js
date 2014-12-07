@@ -14,9 +14,10 @@ require.config({
     jquery: 'bower_components/jquery/dist/jquery.min',
     chance: 'bower_components/chance/chance',
     moment: 'bower_components/momentjs/min/moment.min',
-    palette: 'scripts/vendor/palette',
     'jquery.easing': 'bower_components/jquery.easing/js/jquery.easing.min',
-    underscore: 'bower_components/underscore/underscore-min'
+    underscore: 'bower_components/underscore/underscore-min',
+
+    palette: 'source/scripts/vendor/palette'
   },
   packages: [
   ]
