@@ -48,6 +48,7 @@ module.exports = function(grunt) {
 
 						palette: 'scripts/vendor/palette'
 					}
+					//,optimize: "none"
 				}
 			}
 		},
