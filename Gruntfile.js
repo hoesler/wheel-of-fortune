@@ -46,7 +46,7 @@ module.exports = function(grunt) {
 						'jquery.easing': '../bower_components/jquery.easing/js/jquery.easing',
 						underscore: '../bower_components/underscore/underscore',
 						quint: "../bower_components/qunit/qunit/qunit",
-
+						backbone: "../bower_components/backbone/backbone",
 						palette: 'scripts/vendor/palette'
 					}
 					//,optimize: "none"
