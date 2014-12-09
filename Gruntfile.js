@@ -5,7 +5,7 @@ module.exports = function(grunt) {
 		pkg: grunt.file.readJSON('package.json'),
 		jshint: {
 		  // define the files to lint
-		all: ['Gruntfile.js', 'source/scripts/{,*/}*.js', '!source/scripts/vendor/**'],
+		all: ['Gruntfile.js', 'source/scripts/{,*/}*.js', '!source/scripts/vendor/**', 'test/**/*.js'],
 		  // configure JSHint (documented at http://www.jshint.com/docs/)
 		  options: {
 		      // more options here if you want to override JSHint defaults
@@ -45,6 +45,7 @@ module.exports = function(grunt) {
 						moment: '../bower_components/momentjs/moment',
 						'jquery.easing': '../bower_components/jquery.easing/js/jquery.easing',
 						underscore: '../bower_components/underscore/underscore',
+						quint: "../bower_components/qunit/qunit/qunit",
 
 						palette: 'scripts/vendor/palette'
 					}
@@ -53,11 +54,18 @@ module.exports = function(grunt) {
 			}
 		},
 		connect: {
-		    server: {
+		    build: {
 		        options: {
 		      		hostname: 'localhost',
 		        	port: 7878,
 		        	base: 'build'
+		      	}
+		    },
+		    test: {
+		        options: {
+		      		hostname: 'localhost',
+		        	port: 7979,
+		        	base: '.'
 		      	}
 		    }
 		},
@@ -76,15 +84,20 @@ module.exports = function(grunt) {
 		            deleteAll: true
 		        }
 		    }
-		}
+		},
+		qunit: {
+		    all: ['test/**/*.html']
+	  	}
 	});
 
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-requirejs');
 	grunt.loadNpmTasks('grunt-contrib-connect');
 	grunt.loadNpmTasks('grunt-rsync');
+	grunt.loadNpmTasks('grunt-contrib-qunit');
 
 	grunt.registerTask('build', ['jshint', 'requirejs']);
-	grunt.registerTask('server', ['connect']);
+	grunt.registerTask('server', ['connect:build:keepalive']);
 	grunt.registerTask('deploy', ['rsync:production']);
+	grunt.registerTask('test', ['jshint', 'qunit:all']);
 };
