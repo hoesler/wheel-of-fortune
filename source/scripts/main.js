@@ -30,11 +30,10 @@ require(["jquery", "chance", "moment", "underscore", "palette", "scripts/app/whe
 
 		var colors = palette(['tol-rainbow'], values.length);
 
-		var now = moment();
-		var fixed_random = new Chance(now.year() * 1000 + now.dayOfYear()).random();
-		var chance = new Chance(function() { return fixed_random; });
+		// random value, constant for current day
+		var random = _.constant(new Chance(Math.floor(moment.duration(moment().valueOf()).asDays())).random());
 
-		new Wheel(canvas_el, values, labels, colors, chance).init();
+		new Wheel(canvas_el, values, labels, colors, random).init();
 
 	}).fail(function() {
 		ctx.clearRect(0, 0, canvas.width, canvas.height);

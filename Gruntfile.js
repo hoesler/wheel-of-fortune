@@ -4,52 +4,47 @@ module.exports = function(grunt) {
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
 		jshint: {
-		  // define the files to lint
-		all: ['Gruntfile.js', 'source/scripts/{,*/}*.js', '!source/scripts/vendor/**', 'test/**/*.js'],
-		  // configure JSHint (documented at http://www.jshint.com/docs/)
-		  options: {
-		      // more options here if you want to override JSHint defaults
-		      globals: {
-		      	jQuery: true,
-		      	console: true,
-		      	module: true
-		      }
-		  }
+			source: ['Gruntfile.js', 'source/scripts/{,*/}*.js', '!source/scripts/vendor/**'],
+			test: ['test/**/*.js'],
+		  	options: {
+		  	}
 		},
 		requirejs: {
-			compile: {
-				options: {
-					appDir: "source",
-					baseUrl: ".",
-					dir: "build",
-					modules: [
-					{
-						name: "scripts/main",
-						include: "requireLib"
-					}
-					],
-					shim: {
-						palette: {
-							exports: 'palette'
-						},
-						'jquery.easing': {
-							deps: [
-							'jquery'
-							]
-						}
+			options: {
+				appDir: "source",
+				baseUrl: ".",
+				dir: "build",
+				modules: [
+				{
+					name: "scripts/main",
+					include: "requireLib"
+				}
+				],
+				shim: {
+					palette: {
+						exports: 'palette'
 					},
-					paths: {
-						requireLib: '../bower_components/requirejs/require',
-						jquery: '../bower_components/jquery/dist/jquery',
-						chance: '../bower_components/chance/chance',
-						moment: '../bower_components/momentjs/moment',
-						'jquery.easing': '../bower_components/jquery.easing/js/jquery.easing',
-						underscore: '../bower_components/underscore/underscore',
-						quint: "../bower_components/qunit/qunit/qunit",
-
-						palette: 'scripts/vendor/palette'
+					'jquery.easing': {
+						deps: [
+						'jquery'
+						]
 					}
-					//,optimize: "none"
+				},
+				paths: {
+					requireLib: '../bower_components/requirejs/require',
+					jquery: '../bower_components/jquery/dist/jquery',
+					chance: '../bower_components/chance/chance',
+					moment: '../bower_components/momentjs/moment',
+					'jquery.easing': '../bower_components/jquery.easing/js/jquery.easing',
+					underscore: '../bower_components/underscore/underscore',
+					quint: "../bower_components/qunit/qunit/qunit",
+					palette: 'scripts/vendor/palette'
+				}
+			},
+			production: {},
+			development: {
+				options: {
+					optimize: "none"
 				}
 			}
 		},
@@ -72,7 +67,6 @@ module.exports = function(grunt) {
 		rsync: {
 		    options: {
 		        args: ["--verbose"],
-		        exclude: [".git*","*.scss","node_modules"],
 		        recursive: true
 		    },
 		    production: {
@@ -96,8 +90,10 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-rsync');
 	grunt.loadNpmTasks('grunt-contrib-qunit');
 
-	grunt.registerTask('build', ['jshint', 'requirejs']);
+	grunt.registerTask('test', ['jshint:source', 'jshint:test', 'qunit:all']);
+	grunt.registerTask('build:development', ['test', 'requirejs:development']);
+	grunt.registerTask('build:production', ['test', 'requirejs:production']);
+	grunt.registerTask('build', ['build:development']);
+	grunt.registerTask('deploy', ['build:production', 'rsync:production']);
 	grunt.registerTask('server', ['connect:build:keepalive']);
-	grunt.registerTask('deploy', ['rsync:production']);
-	grunt.registerTask('test', ['jshint', 'qunit:all']);
 };
