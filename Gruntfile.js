@@ -4,41 +4,33 @@ module.exports = function(grunt) {
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
 		jshint: {
-		  // define the files to lint
-		all: ['Gruntfile.js', 'source/scripts/{,*/}*.js', '!source/scripts/vendor/**', 'test/**/*.js'],
-		  // configure JSHint (documented at http://www.jshint.com/docs/)
-		  options: {
-		      // more options here if you want to override JSHint defaults
-		      globals: {
-		      	jQuery: true,
-		      	console: true,
-		      	module: true
-		      }
-		  }
+			source: ['Gruntfile.js', 'source/scripts/{,*/}*.js', '!source/scripts/vendor/**'],
+			test: ['test/**/*.js'],
+		  	options: {
+		  	}
 		},
 		requirejs: {
-			compile: {
-				options: {
-					appDir: "source",
-					baseUrl: ".",
-					dir: "build",
-					modules: [
-					{
-						name: "scripts/main",
-						include: "requireLib"
-					}
-					],
-					shim: {
-						palette: {
-							exports: 'palette'
-						},
-						'jquery.easing': {
-							deps: [
-							'jquery'
-							]
-						}
+			options: {
+				appDir: "source",
+				baseUrl: ".",
+				dir: "build",
+				modules: [
+				{
+					name: "scripts/main",
+					include: "requireLib"
+				}
+				],
+				shim: {
+					palette: {
+						exports: 'palette'
 					},
-					paths: {
+					'jquery.easing': {
+						deps: [
+						'jquery'
+						]
+					}
+				},
+				paths: {
 						requireLib: '../bower_components/requirejs/require',
 						jquery: '../bower_components/jquery/dist/jquery',
 						chance: '../bower_components/chance/chance',
@@ -48,8 +40,12 @@ module.exports = function(grunt) {
 						quint: "../bower_components/qunit/qunit/qunit",
 						backbone: "../bower_components/backbone/backbone",
 						palette: 'scripts/vendor/palette'
-					}
-					//,optimize: "none"
+				}
+			},
+			production: {},
+			development: {
+				options: {
+					optimize: "none"
 				}
 			}
 		},
@@ -72,7 +68,6 @@ module.exports = function(grunt) {
 		rsync: {
 		    options: {
 		        args: ["--verbose"],
-		        exclude: [".git*","*.scss","node_modules"],
 		        recursive: true
 		    },
 		    production: {
@@ -96,8 +91,10 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-rsync');
 	grunt.loadNpmTasks('grunt-contrib-qunit');
 
-	grunt.registerTask('build', ['jshint', 'requirejs']);
+	grunt.registerTask('test', ['jshint:source', 'jshint:test', 'qunit:all']);
+	grunt.registerTask('build:development', ['test', 'requirejs:development']);
+	grunt.registerTask('build:production', ['test', 'requirejs:production']);
+	grunt.registerTask('build', ['build:development']);
+	grunt.registerTask('deploy', ['build:production', 'rsync:production']);
 	grunt.registerTask('server', ['connect:build:keepalive']);
-	grunt.registerTask('deploy', ['rsync:production']);
-	grunt.registerTask('test', ['jshint', 'qunit:all']);
 };

@@ -9,12 +9,12 @@ define(["underscore"],
 			/**
 			 * Roulette Wheel selection
 			 * @param {Array} fitness - The fitness values.
-			 * @param {Object} rng - The rng to use (An object which has a random function, defaults to Math).
+			 * @param {Object} random - The random function to use. Must return a value in [0,1).
 			 */
-			roulette_wheel_selection: function(fitness, rng) {
-				rng = typeof rng !== 'undefined' ? rng : Math;
+			roulette_wheel_selection: function(fitness, random) {
+				random = typeof random !== 'undefined' ? random : Math.random;
 
-				var rand = rng.random() * _.reduce(fitness, Math.sum, 0);
+				var rand = random() * _.reduce(fitness, Math.sum, 0);
 				var tmp = 0;
 				var selected_index = -1;
 				for (i = 0; i < fitness.length; i++) {
