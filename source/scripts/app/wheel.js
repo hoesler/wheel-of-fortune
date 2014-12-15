@@ -1,5 +1,5 @@
 define(["jquery", "moment", "jquery.easing", "underscore", "scripts/helper/math"],
-	function($, moment, easing, _, math) {	
+	function($, moment, jquery_easing, _, math) {	
 
 	/**
 	 * @param {jQuery.fn.init} canvas_el - The canvas element in the DOM slected using $().
@@ -90,7 +90,7 @@ define(["jquery", "moment", "jquery.easing", "underscore", "scripts/helper/math"
 		var animation_start = moment();
 		var animation_interval = setInterval(function() {
 			var time = moment().diff(animation_start);
-			var easing = jQuery.easing.easeOutCirc(null, time, 0, rotation_max, self.animation_duration);
+			var easing = $.easing.easeOutCirc(null, time, 0, rotation_max, self.animation_duration);
 			var rotation = easing % Math.TWO_PI;
 			self.render(rotation);
 		}, 10);
@@ -99,7 +99,7 @@ define(["jquery", "moment", "jquery.easing", "underscore", "scripts/helper/math"
 			clearInterval(animation_interval);
 			after();
 		}, self.animation_duration);
-	};
+	}
 
 	/**
 	 * Setup the Wheel View
