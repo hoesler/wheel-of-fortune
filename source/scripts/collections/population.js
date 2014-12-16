@@ -1,5 +1,5 @@
-define(["backbone", "underscore", "scripts/models/individual"],
-	function(Backbone, _, Individual) {
+define(["backbone", "underscore", "scripts/models/individual", "chance"],
+	function(Backbone, _, Individual, Chance) {
 
 	var Population = Backbone.Collection.extend({
 		
