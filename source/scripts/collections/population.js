@@ -5,21 +5,23 @@ define(["backbone", "underscore", "scripts/models/individual"],
 		
 		model: Individual,
 
-		url: 'https://spreadsheets.google.com/feeds/list/***REMOVED***/1/public/values?alt=json&amp;callback=importGSS',
+		initialize: function(models, options) {
+			this.url = options.url;
+			this.label_key = options.label_key;
+			this.fitness_key = options.fitness_key;
+		},
 		
 		parse: function(response, options) {
-			var label_key = "ort";
-			var fitness_key = "haeufigkeit";
 			var locations = [];
 
 			var elements = new Chance(33).shuffle(response.feed.entry); // fixed shuffle
 			_.each(elements, function(element) {
-				var location = element["gsx$" + label_key].$t;
-				var fitness = parseInt(element["gsx$" + fitness_key].$t);
+				var location = element["gsx$" + this.label_key].$t;
+				var fitness = parseInt(element["gsx$" + this.fitness_key].$t);
 				if (fitness > 0) {
 					locations.push({label: location, fitness: fitness});
 				}
-			});
+			}, this);
 
 			return locations;
 		}

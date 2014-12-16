@@ -3,34 +3,53 @@ define(["jquery", "moment", "jquery.easing", "underscore", "scripts/helper/math"
 
 	var Wheel = Backbone.View.extend({
 		events: {
-			"click": "init_spin"
+			"click": "spin"
+		},
+
+		populate: function() {
+			this.render_info("Loading data...");
+			var self = this;
+			this.collection.fetch({reset: true, error: function() {
+				self.render_info("Error: Failed to load data");
+			}});
 		},
 
 		initialize: function(options) {
 			this.random = typeof options.random !== 'undefined' ? options.random : Math.random;
 			this.animation_duration = typeof options.animation_duration !== 'undefined' ? options.animation_duration : 10000; // ms
-			this.color_brewer = typeof options.color_brewer !== 'undefined' ? options.color_brewer : function(number) { return palette(['tol-rainbow'], number); };
+			this.color_brewer = typeof options.color_brewer !== 'undefined' ? options.color_brewer : function(number) { return _.map(new Array(number), _.constant("#000000")); };
 
-			var self = this;
+			this.reset();
+			this.collection.on("reset", this.reset, this);
+		},
 
-			this.collection.on("reset", function(collection, options) {
-				// TODO: wait for active animation to stop
-				var fitness_values = self.collection.map(function(individual) {
-					return individual.get("fitness");
-				});
-				var fitness_sum = _.reduce(fitness_values, Math.sum, 0);
+		reset: function(collection, options) {
+			// TODO: wait for active animation to stop
+			var fitness_values = this.collection.map(function(individual) {
+				return individual.get("fitness");
+			});
+			var fitness_sum = _.reduce(fitness_values, Math.sum, 0);
 
-				var label_values = self.collection.map(function(individual) {
+			if (fitness_sum !== 0) {
+				var label_values = this.collection.map(function(individual) {
 					return individual.get("label");
 				});
 
-				self.arc_widths = _.map(fitness_values, function(fitness) { return fitness / fitness_sum * Math.TWO_PI; });
-				self.labels = label_values;
-				self.colors = self.color_brewer(self.collection.size());
+				var colors = this.color_brewer(this.collection.size());
 
-				self.render(0);
-				self.$el.addClass("clickable");
-			});
+				this.arc_widths = _.map(fitness_values, function(fitness) { return fitness / fitness_sum * Math.TWO_PI; });
+				this.labels = label_values;
+				this.colors = colors;
+			} else {
+				this.arc_widths = [];
+				this.labels = [];
+				this.colors = [];
+			}
+
+			this.render();
+			this.$el.addClass("clickable");
+
+			this.trigger("ready");
 		},
 
 		render: function(rotation) {
@@ -88,7 +107,7 @@ define(["jquery", "moment", "jquery.easing", "underscore", "scripts/helper/math"
 		 * Spin the wheel
 		 * @param {Function} after - A callback which gets called at the end of the animation
 		 */
-		spin: function(after) {
+		render_spin: function(after) {
 			after = typeof after !== 'undefined' ? after : _.noop();
 
 			var self = this;
@@ -113,14 +132,23 @@ define(["jquery", "moment", "jquery.easing", "underscore", "scripts/helper/math"
 			}, self.animation_duration);
 		},
 
-		init_spin: function() {
+		render_info: function(message) {
+			var canvas = this.$el.get(0);
+			var ctx = canvas.getContext("2d");
+			ctx.clearRect(0, 0, canvas.width, canvas.height);
+			ctx.fillStyle = "#ffffff";
+			ctx.textAlign = "center"; 
+			ctx.fillText(message, canvas.width / 2, canvas.height / 2); 
+		},
+
+		spin: function() {
 			var el = this.$el;
 			if (!el.hasClass("clickable")) {
 				return;
 			}
 			el.removeClass("clickable");
 
-			this.spin(function() {
+			this.render_spin(function() {
 				el.addClass("clickable");
 			});
 		}
