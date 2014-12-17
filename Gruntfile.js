@@ -12,8 +12,9 @@ module.exports = function(grunt) {
 		requirejs: {
 			options: {
 				appDir: "source",
-				baseUrl: ".",
+				baseUrl: ".", // relaive to appDir
 				dir: "build",
+				removeCombined: true,
 				modules: [
 				{
 					name: "scripts/main",
@@ -41,7 +42,11 @@ module.exports = function(grunt) {
 						palette: 'scripts/vendor/palette'
 				}
 			},
-			production: {},
+			production: {
+				options: {
+					optimizeCss: "standard",
+				}
+			},
 			development: {
 				options: {
 					optimize: "none"
