@@ -15,6 +15,7 @@ define(["jquery", "moment", "jquery.easing", "underscore", "scripts/helper/math"
 		},
 
 		initialize: function(options) {
+			options = typeof options !== 'undefined' ? options : {};
 			this.random = typeof options.random !== 'undefined' ? options.random : Math.random;
 			this.animation_duration = typeof options.animation_duration !== 'undefined' ? options.animation_duration : 10000; // ms
 			this.color_brewer = typeof options.color_brewer !== 'undefined' ? options.color_brewer : function(number) { return _.map(new Array(number), _.constant("#000000")); };
