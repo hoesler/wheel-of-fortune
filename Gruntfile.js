@@ -36,9 +36,8 @@ module.exports = function(grunt) {
 						chance: '../bower_components/chance/chance',
 						moment: '../bower_components/momentjs/moment',
 						'jquery.easing': '../bower_components/jquery.easing/js/jquery.easing',
-						underscore: '../bower_components/underscore/underscore',
-						quint: "../bower_components/qunit/qunit/qunit",
-						backbone: "../bower_components/backbone/backbone",
+						underscore: '../bower_components/lodash/dist/lodash.underscore',
+						backbone: '../bower_components/backbone/backbone',
 						palette: 'scripts/vendor/palette'
 				}
 			},
