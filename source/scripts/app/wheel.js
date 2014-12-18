@@ -19,6 +19,7 @@ define(["jquery", "moment", "jquery.easing", "underscore", "scripts/helper/math"
 			this.random = typeof options.random !== 'undefined' ? options.random : Math.random;
 			this.animation_duration = typeof options.animation_duration !== 'undefined' ? options.animation_duration : 10000; // ms
 			this.color_brewer = typeof options.color_brewer !== 'undefined' ? options.color_brewer : function(number) { return _.map(new Array(number), _.constant("#000000")); };
+			this.fps = typeof options.fps !== 'undefined' ? options.fps : 60;
 
 			this.reset();
 			this.collection.on("reset", this.reset, this);
@@ -47,29 +48,29 @@ define(["jquery", "moment", "jquery.easing", "underscore", "scripts/helper/math"
 				this.colors = [];
 			}
 
+			this.wheel_canvas = this.create_wheel_canvas();
 			this.render();
 			this.$el.addClass("clickable");
 
 			this.trigger("ready");
 		},
 
-		render: function(rotation) {
-			rotation = typeof rotation !== 'undefined' ? rotation : 0;
-
-			var canvas = this.$el.get(0);
-			var acr_start = 0;
+		create_wheel_canvas: function() {
 			var radius = 200;
 			var wheel_center_x = 200;
 			var wheel_center_y = 200;
 
+			var canvas = document.createElement('canvas');
+			canvas.width = radius * 2;
+			canvas.height = radius * 2;
+
 			var ctx = canvas.getContext("2d");
-			ctx.save();
-			ctx.clearRect(0, 0, canvas.width, canvas.height);
 
 			ctx.translate(wheel_center_x, wheel_center_y);
-			ctx.rotate(rotation);
 			ctx.translate(-wheel_center_x, -wheel_center_y);
 
+			var acr_start = 0;
+			
 			for (var i = 0; i < this.arc_widths.length; i++) {
 				ctx.fillStyle = "#" + this.colors[i];
 				ctx.beginPath();
@@ -94,6 +95,26 @@ define(["jquery", "moment", "jquery.easing", "underscore", "scripts/helper/math"
 
 				acr_start = arc_end;
 			}
+
+		    return canvas;
+		},
+
+		render: function(rotation) {
+			rotation = typeof rotation !== 'undefined' ? rotation : 0;
+
+			var radius = 200;
+			var wheel_center_x = 200;
+			var wheel_center_y = 200;
+
+			var canvas = this.$el.get(0);
+			var ctx = canvas.getContext("2d");
+			
+			ctx.save();
+			ctx.clearRect(0, 0, canvas.width, canvas.height);
+			ctx.translate(wheel_center_x, wheel_center_y);
+			ctx.rotate(rotation);
+			ctx.translate(-wheel_center_x, -wheel_center_y);
+			ctx.drawImage(this.wheel_canvas, 0, 0);
 			ctx.restore();
 
 			ctx.beginPath();
@@ -117,7 +138,8 @@ define(["jquery", "moment", "jquery.easing", "underscore", "scripts/helper/math"
 			var partial_exclusive = _.reduce(self.arc_widths.slice(0, index), Math.sum, 0);
 			var partial_inclusive = partial_exclusive + self.arc_widths[index];
 			var angle_selected = partial_exclusive + (partial_inclusive - partial_exclusive) / 2;
-			var rotation_max = Math.TWO_PI * 10 + (Math.TWO_PI - angle_selected);
+			var full_rotations = 10;
+			var rotation_max = Math.TWO_PI * full_rotations + (Math.TWO_PI - angle_selected);
 
 			var animation_start = moment();
 			var animation_interval = setInterval(function() {
@@ -125,7 +147,7 @@ define(["jquery", "moment", "jquery.easing", "underscore", "scripts/helper/math"
 				var easing = $.easing.easeOutCirc(null, time, 0, rotation_max, self.animation_duration);
 				var rotation = easing % Math.TWO_PI;
 				self.render(rotation);
-			}, 10);
+			}, Math.min(1, Math.round(1000 / this.fps)));
 
 			setTimeout(function() {
 				clearInterval(animation_interval);
