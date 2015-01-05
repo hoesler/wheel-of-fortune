@@ -3,7 +3,7 @@
 <head>
 	<title><%- appTitle %></title>
 	
-	<link rel="stylesheet" type="text/css" href="<%- baseUrl %>style.css">
+	<link rel="stylesheet" type="text/css" href="<%- baseUrl %>style/style.css">
 
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
@@ -19,5 +19,14 @@
 </div>
 
 </body>
-<script src="<%- baseUrl %>scripts/main.js"></script>
+<script src="<%- baseUrl %>scripts/router/app.js"></script>
+<script type="text/javascript">
+	require(["backbone", "scripts/router/app"],
+		function(Backbone, App) {
+			var app = new App();
+			Backbone.history.start({pushState: true});
+			app.navigate("<%- initialRoute %>", {trigger: true});
+		}
+	);
+</script>
 </html>

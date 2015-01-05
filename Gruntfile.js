@@ -19,7 +19,7 @@ module.exports = function(grunt) {
 				removeCombined: true,
 				modules: [
 				{
-					name: "scripts/main",
+					name: "scripts/router/app",
 					include: "requireLib"
 				}
 				],
@@ -63,7 +63,8 @@ module.exports = function(grunt) {
 				options: {
 					data: {
 						appTitle: 'Meal-Wheel of Fortune',
-						baseUrl: '/'
+						baseUrl: '/',
+						initialRoute: 'spreadsheet/***REMOVED***,ort,haeufigkeit'
 					}
 				},
 				files: {
@@ -71,18 +72,29 @@ module.exports = function(grunt) {
 				}
 			}
 		},
-	    compass: {	
-		    options: {
-	      		sassDir: 'source',
-	      		cssDir: 'build'
-	      	},
-	      	production: {		
-		      options: {
-		      	environment: 'production'
-		      }
-		  	},
-		    development: {
-		    }
+		compass: {	
+			options: {
+				sassDir: 'source',
+				cssDir: 'build'
+			},
+			production: {		
+				options: {
+					environment: 'production'
+				}
+			},
+			development: {
+			}
+		},
+		cssmin: {
+			all: {
+				files: [{
+					expand: true,
+					cwd: 'build/style',
+					src: ['*.css'],
+					dest: 'build/style',
+					ext: '.css'
+				}]
+			}
 		},
 		connect: {
 			options: {
@@ -150,10 +162,11 @@ grunt.loadNpmTasks('grunt-rsync');
 grunt.loadNpmTasks('grunt-contrib-qunit');
 grunt.loadNpmTasks('grunt-template');
 grunt.loadNpmTasks('grunt-contrib-compass');
+grunt.loadNpmTasks('grunt-contrib-cssmin');
 
 grunt.registerTask('test', ['jshint:source', 'jshint:test', 'qunit:all']);
 grunt.registerTask('build:development', ['test', 'requirejs:development', 'template:compile', 'compass:development']);
-grunt.registerTask('build:production', ['test', 'requirejs:production', 'template:compile', 'compass:production']);
+grunt.registerTask('build:production', ['test', 'requirejs:production', 'template:compile', 'compass:production', 'cssmin:all']);
 grunt.registerTask('build', ['build:development']);
 grunt.registerTask('deploy', ['build:production', 'rsync:production']);
 grunt.registerTask('server', ['connect:build:keepalive']);
