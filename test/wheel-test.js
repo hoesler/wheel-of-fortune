@@ -1,4 +1,4 @@
-define(["../source/scripts/app/wheel", "backbone"], function(Wheel, Backbone) {
+define(["../source/scripts/views/wheel", "backbone"], function(Wheel, Backbone) {
 	QUnit.module("wheel.js");
 
 	QUnit.test("Wheel construction", function( assert ) {
