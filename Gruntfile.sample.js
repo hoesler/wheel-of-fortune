@@ -61,9 +61,9 @@ module.exports = function(grunt) {
 			compile: {
 				options: {
 					data: {
-						appTitle: 'Meal-Wheel of Fortune',
+						appTitle: 'Wheel of Fortune',
 						baseUrl: '/',
-						initialRoute: 'wheel/data:spreadsheet,***REMOVED***,ort,haeufigkeit;random:date;color_scheme:tol-rainbow'
+						initialRoute: 'wheel/data:spreadsheet,<key>,<label column title>,<fitness column title>'
 					}
 				},
 				files: {
@@ -136,8 +136,8 @@ module.exports = function(grunt) {
 				options: {
 					src: "build/",
 					exclude: ["build.txt", ".DS_Store"],
-					dest: "***REMOVED***",
-					host: "***REMOVED***",
+					dest: "",
+					host: "",
 					deleteAll: true
 				}
 			}
