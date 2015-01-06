@@ -2,7 +2,6 @@ module.exports = function(grunt) {
 
 	var rewrite = require('connect-modrewrite');
 
-	// Project configuration.
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
 		jshint: {
@@ -64,7 +63,7 @@ module.exports = function(grunt) {
 					data: {
 						appTitle: 'Meal-Wheel of Fortune',
 						baseUrl: '/',
-						initialRoute: 'spreadsheet/***REMOVED***,ort,haeufigkeit'
+						initialRoute: 'wheel/data:spreadsheet,***REMOVED***,ort,haeufigkeit;random:date;color_scheme:tol-rainbow'
 					}
 				},
 				files: {
@@ -155,19 +154,19 @@ module.exports = function(grunt) {
 		}
 	});
 
-grunt.loadNpmTasks('grunt-contrib-jshint');
-grunt.loadNpmTasks('grunt-contrib-requirejs');
-grunt.loadNpmTasks('grunt-contrib-connect');
-grunt.loadNpmTasks('grunt-rsync');
-grunt.loadNpmTasks('grunt-contrib-qunit');
-grunt.loadNpmTasks('grunt-template');
-grunt.loadNpmTasks('grunt-contrib-compass');
-grunt.loadNpmTasks('grunt-contrib-cssmin');
+	grunt.loadNpmTasks('grunt-contrib-jshint');
+	grunt.loadNpmTasks('grunt-contrib-requirejs');
+	grunt.loadNpmTasks('grunt-contrib-connect');
+	grunt.loadNpmTasks('grunt-rsync');
+	grunt.loadNpmTasks('grunt-contrib-qunit');
+	grunt.loadNpmTasks('grunt-template');
+	grunt.loadNpmTasks('grunt-contrib-compass');
+	grunt.loadNpmTasks('grunt-contrib-cssmin');
 
-grunt.registerTask('test', ['jshint:source', 'jshint:test', 'qunit:all']);
-grunt.registerTask('build:development', ['test', 'requirejs:development', 'template:compile', 'compass:development']);
-grunt.registerTask('build:production', ['test', 'requirejs:production', 'template:compile', 'compass:production', 'cssmin:all']);
-grunt.registerTask('build', ['build:development']);
-grunt.registerTask('deploy', ['build:production', 'rsync:production']);
-grunt.registerTask('server', ['connect:build:keepalive']);
+	grunt.registerTask('test', ['jshint:source', 'jshint:test', 'qunit:all']);
+	grunt.registerTask('build:development', ['test', 'requirejs:development', 'template:compile', 'compass:development']);
+	grunt.registerTask('build:production', ['test', 'requirejs:production', 'template:compile', 'compass:production', 'cssmin:all']);
+	grunt.registerTask('build', ['build:development']);
+	grunt.registerTask('deploy', ['build:production', 'rsync:production']);
+	grunt.registerTask('server', ['connect:build:keepalive']);
 };
