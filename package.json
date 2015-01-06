@@ -1,6 +1,6 @@
 {
   "name": "wheel-of-fortune",
-  "version": "0.4.2",
+  "version": "0.5",
   "devDependencies": {
     "connect-modrewrite": "^0.7.9",
     "grunt": "^0.4.5",
