@@ -23,7 +23,7 @@
 			app.route('', 'init', function() {
 				app.navigate("<%- initialRoute %>", {trigger: true});
 			});
-			Backbone.history.start({pushState: true});	
+			Backbone.history.start({pushState: true, root: "<%- baseUrl %>"});	
 		}
 	);
 </script>

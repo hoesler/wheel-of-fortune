@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Example Test Runner</title>
+		<link rel="stylesheet" href="../bower_components/qunit/qunit/qunit.css" />
+		
+		<!-- QUnit must be loaded synchonously with the side for grunt-contrib-qunit to add QUnit hooks -->
+		<script src="../bower_components/qunit/qunit/qunit.js"></script>
+		<script src="../bower_components/requirejs/require.js"></script>
+        
+	</head>
+	<body>
+		<div id="qunit"></div>
+		<div id="qunit-fixture"></div>
+
+		<script>
+        require.config({
+	        baseUrl: "../source",
+			shim: {
+				palette: {
+					exports: 'palette'
+				},
+				'jquery.easing': {
+					deps: [
+					'jquery'
+					]
+				}
+			},
+			paths: {
+				jquery: '../bower_components/jquery/dist/jquery',
+				chance: '../bower_components/chance/chance',
+				moment: '../bower_components/momentjs/moment',
+				'jquery.easing': '../bower_components/jquery.easing/js/jquery.easing',
+				underscore: '../bower_components/lodash/dist/lodash',
+				backbone: '../bower_components/backbone/backbone',
+				palette: 'scripts/vendor/palette'
+			}
+	    });
+        QUnit.config.autostart = false;
+    	require(["math-test.js", "wheel-test.js"], function() {
+ 			QUnit.start();
+    	});
+        </script>
+	</body>
+</html>
