@@ -3,10 +3,10 @@ define(["../source/scripts/views/wheel", "backbone"], function(Wheel, Backbone) 
 
 	QUnit.test("Wheel construction", function( assert ) {
 		var fixture = $( "#qunit-fixture" );
- 		fixture.append( "<canvas id='canvas'></canvas>" );
+ 		fixture.append( "<div id='wheel'><canvas></canvas></div>" );
 
 		var wheel = new Wheel({
-			el: $("#canvas"),
+			el: $("#wheel"),
 			collection: new Backbone.Collection([
 				{label: "Tim", fitness: 5},
 	  			{label: "Ida", fitness: 26},

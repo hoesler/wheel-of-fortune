@@ -54,11 +54,9 @@ define(["backbone", "jquery", "chance", "moment", "underscore", "palette", "scri
   			} else {
   				// TODO: error
   			}
-			
-			var canvas = $("#canvas");
 
 			var wheel = new Wheel({
-				el: canvas,
+				el: $("#wheel"),
 				collection: population,
 				random: rng,
 				color_brewer: color_brewer

@@ -21,6 +21,9 @@ define(["jquery", "moment", "jquery.easing", "underscore", "scripts/helper/math"
 			this.color_brewer = typeof options.color_brewer !== 'undefined' ? options.color_brewer : function(number) { return _.map(new Array(number), _.constant("#000000")); };
 			this.fps = typeof options.fps !== 'undefined' ? options.fps : 60;
 
+			this.$wheel_canvas = this.$el.find("canvas").first();
+			this.wheel_canvas = this.$wheel_canvas.get(0);
+
 			this.reset();
 			this.collection.on("reset", this.reset, this);
 		},
@@ -49,8 +52,8 @@ define(["jquery", "moment", "jquery.easing", "underscore", "scripts/helper/math"
 			}
 
 			// resize canvas
-			var canvas_el = this.$el;
-			var canvas = canvas_el.get(0);
+			var canvas_el = this.$wheel_canvas;
+			var canvas = this.wheel_canvas;
 			
 			var bounding_rect_width = Math.min(canvas.width, canvas.height);
 			this.wheel_margin = 20;
@@ -59,14 +62,16 @@ define(["jquery", "moment", "jquery.easing", "underscore", "scripts/helper/math"
 			canvas.width = Math.min(Math.max(Math.min(window.innerWidth, window.innerHeight), 320), 400);
             canvas.height = canvas.width;
 
-			this.wheel_canvas = this.create_wheel_canvas();
+			this.wheel_image = this.create_wheel_image();
 			this.render();
 			canvas_el.addClass("clickable");
+
+			this.$el.show();
 
 			this.trigger("ready");
 		},
 
-		create_wheel_canvas: function() {
+		create_wheel_image: function() {
 			var canvas = document.createElement('canvas');
 			canvas.width = this.wheel_radius * 2;
 			canvas.height = this.wheel_radius * 2;
@@ -112,7 +117,7 @@ define(["jquery", "moment", "jquery.easing", "underscore", "scripts/helper/math"
 		render: function(rotation) {
 			rotation = typeof rotation !== 'undefined' ? rotation : 0;
 
-			var canvas = this.$el.get(0);
+			var canvas = this.wheel_canvas;
 			var ctx = canvas.getContext("2d");
 			
 			var wheel_center_x = this.wheel_margin + this.wheel_radius;
@@ -123,7 +128,7 @@ define(["jquery", "moment", "jquery.easing", "underscore", "scripts/helper/math"
 			ctx.translate(wheel_center_x, wheel_center_y);
 			ctx.rotate(rotation);
 			ctx.translate(-wheel_center_x, -wheel_center_y);
-			ctx.drawImage(this.wheel_canvas, this.wheel_margin, this.wheel_margin);
+			ctx.drawImage(this.wheel_image, this.wheel_margin, this.wheel_margin);
 			ctx.restore();
 
 			ctx.beginPath();
@@ -165,7 +170,7 @@ define(["jquery", "moment", "jquery.easing", "underscore", "scripts/helper/math"
 		},
 
 		render_info: function(message) {
-			var canvas = this.$el.get(0);
+			var canvas = this.wheel_canvas;
 			var ctx = canvas.getContext("2d");
 			ctx.clearRect(0, 0, canvas.width, canvas.height);
 			ctx.fillStyle = "#ffffff";
@@ -174,7 +179,7 @@ define(["jquery", "moment", "jquery.easing", "underscore", "scripts/helper/math"
 		},
 
 		spin: function() {
-			var el = this.$el;
+			var el = this.$el.find("canvas").first();
 			if (!el.hasClass("clickable")) {
 				return;
 			}
