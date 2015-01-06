@@ -135,7 +135,7 @@ module.exports = function(grunt) {
 			production: {
 				options: {
 					src: "build/",
-					exclude: ["build.txt"],
+					exclude: ["build.txt", ".DS_Store"],
 					dest: "***REMOVED***",
 					host: "***REMOVED***",
 					deleteAll: true
