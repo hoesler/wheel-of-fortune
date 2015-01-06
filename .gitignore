@@ -31,3 +31,5 @@ bower_components
 
 # sass
 .sass-cache/
+
+Gruntfile.js
