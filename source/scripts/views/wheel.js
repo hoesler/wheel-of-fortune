@@ -3,7 +3,7 @@ define(["jquery", "moment", "jquery.easing", "underscore", "scripts/helper/math"
 
 	var Wheel = Backbone.View.extend({
 		events: {
-			"click": "spin"
+			"click canvas": "spin"
 		},
 
 		populate: function() {

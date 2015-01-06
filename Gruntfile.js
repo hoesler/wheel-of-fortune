@@ -125,13 +125,6 @@ module.exports = function(grunt) {
 		    		port: 7878,
 		    		base: 'build'
 		    	}
-		    },
-		    test: {
-		    	options: {
-		    		hostname: 'localhost',
-		    		port: 7979,
-		    		base: '.'
-		    	}
 		    }
 		},
 		rsync: {
@@ -163,10 +156,13 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-compass');
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
 
-	grunt.registerTask('test', ['jshint:source', 'jshint:test', 'qunit:all']);
-	grunt.registerTask('build:development', ['test', 'requirejs:development', 'template:compile', 'compass:development']);
-	grunt.registerTask('build:production', ['test', 'requirejs:production', 'template:compile', 'compass:production', 'cssmin:all']);
+	grunt.registerTask('lint', ['jshint:source']);
+	grunt.registerTask('test', ['lint', 'jshint:test', 'qunit:all']);
+	grunt.registerTask('build:development', ['lint', 'requirejs:development', 'template:compile', 'compass:development']);
+	grunt.registerTask('build:production', ['lint', 'requirejs:production', 'template:compile', 'compass:production', 'cssmin:all']);
 	grunt.registerTask('build', ['build:development']);
-	grunt.registerTask('deploy', ['build:production', 'rsync:production']);
+	grunt.registerTask('deploy', ['build:production', 'test', 'rsync:production']);
 	grunt.registerTask('server', ['connect:build:keepalive']);
+
+	grunt.registerTask('default', ['build']);
 };

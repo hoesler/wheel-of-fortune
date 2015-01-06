@@ -1,0 +1,25 @@
+body {
+	background-color: #171811;
+	color: #ffffff;
+	margin: 0;
+}
+
+#wheel {
+	display: none;
+
+	canvas {
+		display: block;
+		margin: 5em auto 1em auto;
+	}
+
+	.canvas-label {
+		width: 100%;
+		text-align: center;
+		padding-top: 20px;
+		font-size: 10pt;
+	}
+}
+
+.clickable {
+	cursor: pointer;
+}
