@@ -25,6 +25,10 @@ define(["backbone", "jquery", "chance", "moment", "underscore", "palette", "scri
 		  	var rng = null;
 		  	if (wheel_config.random == "date") {
 	  			rng = _.constant(new Chance(Math.floor(moment.duration(moment().valueOf()).asDays())).random());
+	  		} else if (/^\d+(\.\d+)?$/.test(wheel_config.random)) {
+	  			var const_random = parseFloat(wheel_config.random);
+	  			// TODO: verify const_random
+	  			rng = _.constant(const_random);
 	  		} else {
 	  			chance = new Chance();
 	  			rng = function() { return chance.random(); };
