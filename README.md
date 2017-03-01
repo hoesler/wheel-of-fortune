@@ -5,7 +5,7 @@
 ## Description
 This is a personal toy web application to explore [HTML5 Canvas](http://diveintohtml5.info/canvas.html) and the development workflow for a Javascript project. It utilizes [Backbone](backbonejs.org) as the application framework and [Grunt](http://gruntjs.com/) for task automation.
 
-The current implementation fetches the wheel-data from a [google spreadsheet](https://docs.google.com/spreadsheets) using the [Spreadsheets Data API](https://developers.google.com/gdata/samples/spreadsheet_sample).
+The current implementation fetches the wheel-data from a [google spreadsheet](https://docs.google.com/spreadsheets/d/1gjkTgiAs-SX6Gbf09JvvJajJLSv7IRqLAFpUhhmlSMM/edit?usp=sharing) using the [Spreadsheets Data API](https://developers.google.com/gdata/samples/spreadsheet_sample).
 
 ## Demo
 [http://zweischrift.de/wof/](http://zweischrift.de/wof/)
