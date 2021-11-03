@@ -45,15 +45,16 @@ define(["backbone", "jquery", "chance", "moment", "underscore", "palette", "scri
   			}
 
   			var population = null;
-  			if (/^spreadsheet/.test(wheel_config.data)) {
-  				var spreadsheet_options = /^spreadsheet,([^,]+),([^,]+),([^,]+)/.exec(wheel_config.data);
-  				var spreadsheet_id = spreadsheet_options[1];
-  				var label_key = spreadsheet_options[2];
-  				var fitness_key = spreadsheet_options[3];
+  			if (/^google_sheet/.test(wheel_config.data)) {
+  				var spreadsheet_options = /^google_sheet,(.+)/.exec(wheel_config.data);
+  				spreadsheet_options = spreadsheet_options[1].split(/,/).map(s => s.split('='));
+				var want = {};
+  				spreadsheet_options.forEach(([key, value]) => want[key] = value);
+
+  				var spreadsheet_id = want.id;
+  				var api_key = want.key;
   				population = new Population([], {
-					url: 'https://spreadsheets.google.com/feeds/list/' + spreadsheet_id + '/1/public/values?alt=json&amp;callback=importGSS',
-					label_key: label_key,
-					fitness_key: fitness_key
+					url: 'https://sheets.googleapis.com/v4/spreadsheets/' + spreadsheet_id + '/values/Sheet1?key=' + api_key
 				});
   			} else {
   				// TODO: error

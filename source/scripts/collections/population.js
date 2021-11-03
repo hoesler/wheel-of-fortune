@@ -7,17 +7,15 @@ define(["backbone", "underscore", "scripts/models/individual", "chance"],
 
 		initialize: function(models, options) {
 			this.url = options.url;
-			this.label_key = options.label_key;
-			this.fitness_key = options.fitness_key;
 		},
 		
 		parse: function(response, options) {
 			var locations = [];
 
-			var elements = new Chance(33).shuffle(response.feed.entry); // fixed shuffle
+			var elements = new Chance(33).shuffle(response.values); // fixed shuffle
 			_.each(elements, function(element) {
-				var location = element["gsx$" + this.label_key].$t;
-				var fitness = parseInt(element["gsx$" + this.fitness_key].$t);
+				var location = element[0];
+				var fitness = parseInt(element[1]);
 				if (fitness > 0) {
 					locations.push({label: location, fitness: fitness});
 				}
