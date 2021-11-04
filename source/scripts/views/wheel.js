@@ -73,8 +73,12 @@ define(["jquery", "moment", "jquery.easing", "underscore", "scripts/helper/math"
 
 		create_wheel_image: function() {
 			var canvas = document.createElement('canvas');
-			canvas.width = this.wheel_radius * 2;
-			canvas.height = this.wheel_radius * 2;
+			
+			var pixel_ratio = window.devicePixelRatio;
+			canvas.width = this.wheel_radius * 2 * pixel_ratio;
+			canvas.height = this.wheel_radius * 2 * pixel_ratio;
+			canvas.style.width = this.wheel_radius * 2 + 'px';
+			canvas.style.height = this.wheel_radius * 2 + 'px';
 
 			var wheel_center_x = this.wheel_radius;
 			var wheel_center_y = this.wheel_radius;
