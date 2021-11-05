@@ -59,11 +59,9 @@ define(["jquery", "moment", "jquery.easing", "underscore", "scripts/helper/math"
 			this.wheel_margin = 20;
 			this.wheel_radius = bounding_rect_width / 2 - this.wheel_margin;
 
-			canvas.width = Math.min(Math.max(Math.min(window.innerWidth, window.innerHeight), 320), 400);
-            canvas.height = canvas.width;
-
 			this.wheel_image = this.create_wheel_image();
 			this.render();
+			
 			canvas_el.addClass("clickable");
 
 			this.$el.show();
@@ -74,16 +72,13 @@ define(["jquery", "moment", "jquery.easing", "underscore", "scripts/helper/math"
 		create_wheel_image: function() {
 			var canvas = document.createElement('canvas');
 			
-			var pixel_ratio = window.devicePixelRatio;
-			canvas.width = this.wheel_radius * 2 * pixel_ratio;
-			canvas.height = this.wheel_radius * 2 * pixel_ratio;
-			canvas.style.width = this.wheel_radius * 2 + 'px';
-			canvas.style.height = this.wheel_radius * 2 + 'px';
+			canvas.width = this.wheel_radius * 2;
+			canvas.height = this.wheel_radius * 2;
+
+			var ctx = canvas.getContext("2d");
 
 			var wheel_center_x = this.wheel_radius;
 			var wheel_center_y = this.wheel_radius;
-
-			var ctx = canvas.getContext("2d");
 
 			ctx.translate(wheel_center_x, wheel_center_y);
 			ctx.translate(-wheel_center_x, -wheel_center_y);
@@ -108,6 +103,7 @@ define(["jquery", "moment", "jquery.easing", "underscore", "scripts/helper/math"
 				ctx.fillStyle = "#ffffff";
 				ctx.textAlign = "right"; 
 				ctx.textBaseline = "middle";
+				ctx.font = window.devicePixelRatio * 10 + "px Arial";
 				ctx.fillText(this.labels[i], 0, 0);
 
 				ctx.restore();
@@ -115,7 +111,7 @@ define(["jquery", "moment", "jquery.easing", "underscore", "scripts/helper/math"
 				acr_start = arc_end;
 			}
 
-		    return canvas;
+			return canvas;
 		},
 
 		render: function(rotation) {
@@ -123,6 +119,15 @@ define(["jquery", "moment", "jquery.easing", "underscore", "scripts/helper/math"
 
 			var canvas = this.wheel_canvas;
 			var ctx = canvas.getContext("2d");
+			var pixel_ratio = window.devicePixelRatio;
+
+			width = Math.min(Math.max(Math.min(window.innerWidth, window.innerHeight), 320), 400);
+			height = width;
+
+			canvas.width = width * pixel_ratio;
+            canvas.height = height * pixel_ratio;
+			canvas.style.width = width + 'px';
+			canvas.style.height = height + 'px';
 			
 			var wheel_center_x = this.wheel_margin + this.wheel_radius;
 			var wheel_center_y = this.wheel_margin + this.wheel_radius;
@@ -138,9 +143,11 @@ define(["jquery", "moment", "jquery.easing", "underscore", "scripts/helper/math"
 			ctx.beginPath();
 		    ctx.moveTo(wheel_center_x + this.wheel_radius - 5, wheel_center_y);
 		    ctx.strokeStyle = '#ffffff';
-		    ctx.lineWidth = 3;
+		    ctx.lineWidth = 6;
 		    ctx.lineTo(wheel_center_x + this.wheel_radius + 50, wheel_center_y);
 		    ctx.stroke();
+
+			ctx.scale(pixel_ratio, pixel_ratio);
 		},
 
 		/**
