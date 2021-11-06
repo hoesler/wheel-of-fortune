@@ -56,7 +56,7 @@ define(["backbone", "jquery", "chance", "moment", "underscore", "palette", "scri
                     spreadsheet_options.forEach(([key, value]) => want[key] = value);
 
                     var spreadsheet_id = want.id;
-                    var api_key = want.key;
+                    var api_key = want.api_key;
                     collection = new GoogleSheetsV4WheelCollection([], {
                         spreadsheet_id: spreadsheet_id,
                         api_key: api_key
