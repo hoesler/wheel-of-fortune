@@ -3,9 +3,9 @@
 >A Javascript application which creates a wheel-of-fortune using HTML5 Canvas.
 
 ## Description
-This is a personal toy web application to explore [HTML5 Canvas](http://diveintohtml5.info/canvas.html) and the development workflow for a Javascript project. It utilizes [Backbone](backbonejs.org) as the application framework and [Grunt](http://gruntjs.com/) for task automation.
+This is a personal toy web application created in 2015 to explore [HTML5 Canvas](http://diveintohtml5.info/canvas.html) and the development workflow for a Javascript project which was state of the art at that time. I chose [Backbone](backbonejs.org) as the application framework and [Grunt](http://gruntjs.com/) for task automation. For easy data manipulation, I wanted to load the wheel data from a google spreadsheet using the Google Sheets API.
 
-The current implementation fetches its data from a google spreadsheet using the [Google Sheets API](https://developers.google.com/sheets/api).
+After 7 year of inactivity, in 2021, I updated the app to use the Goggle Sheets API V4 API. V3 has been deactivated in 2020. Other major changes include a migration from bower to yarn, updated dependencies and support for Hi-DPI displays.
 
 ## Demo
 [http://zweischrift.de/wof/](http://zweischrift.de/wof/)
