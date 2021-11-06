@@ -1,5 +1,5 @@
-define(["jquery", "moment", "jquery.easing", "underscore", "scripts/helper/math", "backbone", "scripts/collections/google_sheets_v4_wheel_collection", "scripts/models/wheel_element"],
-	function($, moment, jquery_easing, _, math, Backbone, GoogleSheetsV4WheelCollection, WheelElement) {	
+define(["jquery", "moment", "underscore", "scripts/helper/math", "backbone", "scripts/collections/google_sheets_v4_wheel_collection", "scripts/models/wheel_element"],
+	function($, moment, _, math, Backbone, GoogleSheetsV4WheelCollection, WheelElement) {	
 
 	var Wheel = Backbone.View.extend({
 		events: {
@@ -166,10 +166,14 @@ define(["jquery", "moment", "jquery.easing", "underscore", "scripts/helper/math"
 			var full_rotations = 10;
 			var rotation_max = Math.TWO_PI * full_rotations + (Math.TWO_PI - angle_selected);
 
+			function easeOutCirc(t, b, c, d) {
+		        return c * Math.sqrt(1 - (t = t / d - 1) * t) + b;
+		    }
+
 			var animation_start = moment();
 			var animation_interval = setInterval(function() {
 				var time = moment().diff(animation_start);
-				var easing = $.easing.easeOutCirc(null, time, 0, rotation_max, self.animation_duration);
+				var easing = easeOutCirc(time, 0, rotation_max, self.animation_duration);
 				var rotation = easing % Math.TWO_PI;
 				self.render(rotation);
 			}, Math.min(1, Math.round(1000 / this.fps)));

@@ -25,21 +25,15 @@ module.exports = function(grunt) {
 				shim: {
 					palette: {
 						exports: 'palette'
-					},
-					'jquery.easing': {
-						deps: [
-						'jquery'
-						]
 					}
 				},
 				paths: {
-					requireLib: '../node_modules/@bower_components/requirejs/require',
-					jquery: '../node_modules/@bower_components/jquery/dist/jquery',
-					chance: '../node_modules/@bower_components/chance/chance',
-					moment: '../node_modules/@bower_components/momentjs/moment',
-					'jquery.easing': '../node_modules/@bower_components/jquery.easing/js/jquery.easing',
-					underscore: '../node_modules/@bower_components/lodash/dist/lodash',
-					backbone: '../node_modules/@bower_components/backbone/backbone',
+					requireLib: '../node_modules/requirejs/require',
+					jquery: '../node_modules/jquery/dist/jquery',
+					chance: '../node_modules/chance/chance',
+					moment: '../node_modules/momentjs/moment',
+					underscore: '../node_modules/underscore/underscore',
+					backbone: '../node_modules/backbone/backbone',
 					palette: 'scripts/vendor/palette'
 				},
 				fileExclusionRegExp: /.*\.(?:tpl|s[ac]ss)/,
