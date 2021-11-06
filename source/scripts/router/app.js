@@ -1,5 +1,5 @@
-define(["backbone", "jquery", "chance", "moment", "underscore", "palette", "scripts/views/wheel", "scripts/collections/population"],
-	function(Backbone, $, Chance, moment, _, palette, Wheel, Population) {
+define(["backbone", "jquery", "chance", "moment", "underscore", "palette", "scripts/views/wheel", "scripts/collections/google_sheets_v4_wheel_collection"],
+	function(Backbone, $, Chance, moment, _, palette, Wheel, GoogleSheetsV4WheelCollection) {
 		
 		var App = Backbone.Router.extend({
 
@@ -44,7 +44,7 @@ define(["backbone", "jquery", "chance", "moment", "underscore", "palette", "scri
   				// TODO: error
   			}
 
-  			var population = null;
+  			var collection = null;
   			if (/^google_sheet/.test(wheel_config.data)) {
   				var spreadsheet_options = /^google_sheet,(.+)/.exec(wheel_config.data);
   				spreadsheet_options = spreadsheet_options[1].split(/,/).map(s => s.split('='));
@@ -53,16 +53,17 @@ define(["backbone", "jquery", "chance", "moment", "underscore", "palette", "scri
 
   				var spreadsheet_id = want.id;
   				var api_key = want.key;
-  				population = new Population([], {
-					url: 'https://sheets.googleapis.com/v4/spreadsheets/' + spreadsheet_id + '/values/Sheet1?key=' + api_key
+  				collection = new GoogleSheetsV4WheelCollection([], {
+					spreadsheet_id: spreadsheet_id,
+					api_key: api_key
 				});
   			} else {
-  				// TODO: error
+  				alert("Not implemented: " + wheel_config.data);
   			}
 
 			var wheel = new Wheel({
 				el: $("#wheel"),
-				collection: population,
+				collection: collection,
 				random: rng,
 				color_brewer: color_brewer
 			});

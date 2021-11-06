@@ -1,5 +1,5 @@
-define(["jquery", "moment", "jquery.easing", "underscore", "scripts/helper/math", "backbone", "scripts/collections/population", "scripts/models/individual"],
-	function($, moment, jquery_easing, _, math, Backbone, Population, Individual) {	
+define(["jquery", "moment", "jquery.easing", "underscore", "scripts/helper/math", "backbone", "scripts/collections/google_sheets_v4_wheel_collection", "scripts/models/wheel_element"],
+	function($, moment, jquery_easing, _, math, Backbone, GoogleSheetsV4WheelCollection, WheelElement) {	
 
 	var Wheel = Backbone.View.extend({
 		events: {
@@ -30,14 +30,14 @@ define(["jquery", "moment", "jquery.easing", "underscore", "scripts/helper/math"
 
 		reset: function(collection, options) {
 			// TODO: wait for active animation to stop
-			var fitness_values = this.collection.map(function(individual) {
-				return individual.get("fitness");
+			var fitness_values = this.collection.map(function(wheel_element) {
+				return wheel_element.get("fitness");
 			});
 			var fitness_sum = _.reduce(fitness_values, Math.sum, 0);
 
 			if (fitness_sum !== 0) {
-				var label_values = this.collection.map(function(individual) {
-					return individual.get("label");
+				var label_values = this.collection.map(function(wheel_element) {
+					return wheel_element.get("label");
 				});
 
 				var colors = this.color_brewer(this.collection.size());
