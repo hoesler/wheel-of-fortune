@@ -4,15 +4,30 @@
   "devDependencies": {
     "connect-modrewrite": "*",
     "grunt": "*",
-    "grunt-sass": "*",
-    "node-sass": "*",
     "grunt-contrib-connect": "*",
     "grunt-contrib-cssmin": "*",
     "grunt-contrib-jshint": "*",
     "grunt-contrib-qunit": "*",
     "grunt-contrib-requirejs": "*",
     "grunt-rsync": "*",
+    "grunt-sass": "*",
     "grunt-template": "*",
+    "node-sass": "*",
     "serve-static": "*"
-  }
+  },
+  "dependencies": {
+    "@bower_components/backbone": "jashkenas/backbone#~1.1.2",
+    "@bower_components/chance": "victorquinn/chancejs#~0.7.0",
+    "@bower_components/jquery": "jquery/jquery-dist#~2.1.1",
+    "@bower_components/jquery.easing": "jozefizso/bower-jquery-easing#~1.3.1",
+    "@bower_components/lodash": "lodash/lodash#~2.4.1",
+    "@bower_components/momentjs": "moment/moment#~2.8.4",
+    "@bower_components/qunit": "jquery/qunit#~1.16.0",
+    "@bower_components/requirejs": "jrburke/requirejs-bower#~2.1.15",
+    "@bower_components/underscore": "jashkenas/underscore#>=1.5.0"
+  },
+  "engines": {
+    "yarn": ">= 1.0.0"
+  },
+  "packageManager": "yarn@3.1.0"
 }

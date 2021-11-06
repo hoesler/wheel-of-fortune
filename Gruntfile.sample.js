@@ -33,13 +33,13 @@ module.exports = function(grunt) {
 					}
 				},
 				paths: {
-					requireLib: '../bower_components/requirejs/require',
-					jquery: '../bower_components/jquery/dist/jquery',
-					chance: '../bower_components/chance/chance',
-					moment: '../bower_components/momentjs/moment',
-					'jquery.easing': '../bower_components/jquery.easing/js/jquery.easing',
-					underscore: '../bower_components/lodash/dist/lodash',
-					backbone: '../bower_components/backbone/backbone',
+					requireLib: '../node_modules/@bower_components/requirejs/require',
+					jquery: '../node_modules/@bower_components/jquery/dist/jquery',
+					chance: '../node_modules/@bower_components/chance/chance',
+					moment: '../node_modules/@bower_components/momentjs/moment',
+					'jquery.easing': '../node_modules/@bower_components/jquery.easing/js/jquery.easing',
+					underscore: '../node_modules/@bower_components/lodash/dist/lodash',
+					backbone: '../node_modules/@bower_components/backbone/backbone',
 					palette: 'scripts/vendor/palette'
 				},
 				fileExclusionRegExp: /.*\.(?:tpl|s[ac]ss)/,

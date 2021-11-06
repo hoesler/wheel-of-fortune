@@ -2,11 +2,11 @@
 <html>
 	<head>
 		<title>Example Test Runner</title>
-		<link rel="stylesheet" href="../bower_components/qunit/qunit/qunit.css" />
+		<link rel="stylesheet" href="../node_modules/@bower_components/qunit/qunit/qunit.css" />
 		
 		<!-- QUnit must be loaded synchonously with the side for grunt-contrib-qunit to add QUnit hooks -->
-		<script src="../bower_components/qunit/qunit/qunit.js"></script>
-		<script src="../bower_components/requirejs/require.js"></script>
+		<script src="../node_modules/@bower_components/qunit/qunit/qunit.js"></script>
+		<script src="../node_modules/@bower_components/requirejs/require.js"></script>
         
 	</head>
 	<body>
@@ -27,12 +27,12 @@
 				}
 			},
 			paths: {
-				jquery: '../bower_components/jquery/dist/jquery',
-				chance: '../bower_components/chance/chance',
-				moment: '../bower_components/momentjs/moment',
-				'jquery.easing': '../bower_components/jquery.easing/js/jquery.easing',
-				underscore: '../bower_components/lodash/dist/lodash',
-				backbone: '../bower_components/backbone/backbone',
+				jquery: '../node_modules/@bower_components/jquery/dist/jquery',
+				chance: '../node_modules/@bower_components/chance/chance',
+				moment: '../node_modules/@bower_components/momentjs/moment',
+				'jquery.easing': '../node_modules/@bower_components/jquery.easing/js/jquery.easing',
+				underscore: '../node_modules/@bower_components/lodash/dist/lodash',
+				backbone: '../node_modules/@bower_components/backbone/backbone',
 				palette: 'scripts/vendor/palette'
 			}
 	    });
