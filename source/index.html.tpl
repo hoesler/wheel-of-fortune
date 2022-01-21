@@ -8,7 +8,7 @@
 <body>
 <div id="content">
 	<div id="wheel">
-		<canvas width="320" height="320">
+		<canvas width="640" height="640">
 		Sorry, your browser does not support HTML5 Canvas!
 		</canvas>
 		<div class="canvas-label">Click wheel to spin</div>

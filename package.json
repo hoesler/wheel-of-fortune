@@ -1,16 +1,31 @@
 {
   "name": "wheel-of-fortune",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "devDependencies": {
-    "connect-modrewrite": "^0.7.9",
-    "grunt": "^0.4.5",
-    "grunt-contrib-compass": "^1.0.1",
-    "grunt-contrib-connect": "^0.9.0",
-    "grunt-contrib-cssmin": "^0.11.0",
-    "grunt-contrib-jshint": "^0.10.0",
-    "grunt-contrib-qunit": "^0.5.2",
-    "grunt-contrib-requirejs": "^0.4.4",
-    "grunt-rsync": "^0.6.2",
-    "grunt-template": "^0.2.3"
-  }
+    "connect-modrewrite": "^0.10.2",
+    "grunt": "^1.4.1",
+    "grunt-contrib-connect": "^3.0.0",
+    "grunt-contrib-cssmin": "^4.0.0",
+    "grunt-contrib-jshint": "^3.1.1",
+    "grunt-contrib-qunit": "^5.1.1",
+    "grunt-contrib-requirejs": "^1.0.0",
+    "grunt-rsync": "^3.0.0",
+    "grunt-sass": "^3.1.0",
+    "grunt-template": "^1.0.0",
+    "node-sass": "^6.0.1",
+    "qunit": "^2.17.2",
+    "serve-static": "^1.14.1"
+  },
+  "dependencies": {
+    "backbone": "^1.4.0",
+    "chance": "^1.1.8",
+    "jquery": "^3.6.0",
+    "lodash": "^4.17.21",
+    "moment": "^2.29.1",
+    "requirejs": "^2.3.6"
+  },
+  "engines": {
+    "yarn": ">= 1.0.0"
+  },
+  "packageManager": "yarn@3.1.0"
 }
