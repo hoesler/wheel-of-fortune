@@ -641,6 +641,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"commander@npm:7.2.0":
+  version: 7.2.0
+  resolution: "commander@npm:7.2.0"
+  checksum: 53501cbeee61d5157546c0bef0fedb6cdfc763a882136284bed9a07225f09a14b82d2a84e7637edfd1a679fb35ed9502fd58ef1d091e6287f60d790147f68ddc
+  languageName: node
+  linkType: hard
+
 "concat-map@npm:0.0.1":
   version: 0.0.1
   resolution: "concat-map@npm:0.0.1"
@@ -1412,6 +1419,20 @@ __metadata:
     is-windows: ^1.0.1
     which: ^1.2.14
   checksum: 061b43470fe498271bcd514e7746e8a8535032b17ab9570517014ae27d700ff0dca749f76bbde13ba384d185be4310d8ba5712cb0e74f7d54d59390db63dd9a0
+  languageName: node
+  linkType: hard
+
+"globalyzer@npm:0.1.0":
+  version: 0.1.0
+  resolution: "globalyzer@npm:0.1.0"
+  checksum: 419a0f95ba542534fac0842964d31b3dc2936a479b2b1a8a62bad7e8b61054faa9b0a06ad9f2e12593396b9b2621cac93358d9b3071d33723fb1778608d358a1
+  languageName: node
+  linkType: hard
+
+"globrex@npm:^0.1.2":
+  version: 0.1.2
+  resolution: "globrex@npm:0.1.2"
+  checksum: adca162494a176ce9ecf4dd232f7b802956bb1966b37f60c15e49d2e7d961b66c60826366dc2649093cad5a0d69970cfa8875bd1695b5a1a2f33dcd2aa88da3c
   languageName: node
   linkType: hard
 
@@ -2248,7 +2269,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lodash@npm:^4.0.0, lodash@npm:^4.17.14, lodash@npm:^4.17.15, lodash@npm:~4.17.10, lodash@npm:~4.17.19, lodash@npm:~4.17.21":
+"lodash@npm:^4.0.0, lodash@npm:^4.17.14, lodash@npm:^4.17.15, lodash@npm:^4.17.21, lodash@npm:~4.17.10, lodash@npm:~4.17.19, lodash@npm:~4.17.21":
   version: 4.17.21
   resolution: "lodash@npm:4.17.21"
   checksum: eb835a2e51d381e561e508ce932ea50a8e5a68f4ebdd771ea240d3048244a8d13658acbd502cd4829768c56f2e16bdd4340b9ea141297d472517b83868e677f7
@@ -2649,6 +2670,13 @@ __metadata:
   bin:
     node-sass: bin/node-sass
   checksum: 930a147aeaa1d9e91e3453199125c5ed2cb13e94f8466f221bf3ee1501007f453ccb946e121731f945d88aa8ffc451716109f2aea3b2beac70b46af00397c55f
+  languageName: node
+  linkType: hard
+
+"node-watch@npm:0.7.2":
+  version: 0.7.2
+  resolution: "node-watch@npm:0.7.2"
+  checksum: 340eca43b97181e0e102a1d4b63aaa2b87f78818231e927e5604b01a847191442f938c8014629ca4ea4a7d2917607aef2a6b1b840d4bfd968101f17e0a190841
   languageName: node
   linkType: hard
 
@@ -3147,6 +3175,19 @@ __metadata:
   version: 4.0.1
   resolution: "quick-lru@npm:4.0.1"
   checksum: bea46e1abfaa07023e047d3cf1716a06172c4947886c053ede5c50321893711577cb6119360f810cc3ffcd70c4d7db4069c3cee876b358ceff8596e062bd1154
+  languageName: node
+  linkType: hard
+
+"qunit@npm:^2.17.2":
+  version: 2.17.2
+  resolution: "qunit@npm:2.17.2"
+  dependencies:
+    commander: 7.2.0
+    node-watch: 0.7.2
+    tiny-glob: 0.2.9
+  bin:
+    qunit: bin/qunit.js
+  checksum: a2b0db6cdb358a30396ab7207080b6f389662a48d93a2658e2995f98663a333d19477cd26f373c5d086d7d635e0491f0689aa71fc13f2165e2ef3db8cbcc4b8d
   languageName: node
   linkType: hard
 
@@ -3866,6 +3907,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"tiny-glob@npm:0.2.9":
+  version: 0.2.9
+  resolution: "tiny-glob@npm:0.2.9"
+  dependencies:
+    globalyzer: 0.1.0
+    globrex: ^0.1.2
+  checksum: aea5801eb6663ddf77ebb74900b8f8bd9dfcfc9b6a1cc8018cb7421590c00bf446109ff45e4b64a98e6c95ddb1255a337a5d488fb6311930e2a95334151ec9c6
+  languageName: node
+  linkType: hard
+
 "to-regex-range@npm:^5.0.1":
   version: 5.0.1
   resolution: "to-regex-range@npm:5.0.1"
@@ -3986,7 +4037,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"underscore@npm:>=1.8.3, underscore@npm:^1.13.1":
+"underscore@npm:>=1.8.3":
   version: 1.13.1
   resolution: "underscore@npm:1.13.1"
   checksum: 69bb4e6dd92c387ad322dd5b105f496fa64896d92ff1eea987610920d452667a12bca0938def4c4d60acd12da62410540fd268e7ca4f2480d89324498382fcac
@@ -4147,11 +4198,12 @@ __metadata:
     grunt-sass: ^3.1.0
     grunt-template: ^1.0.0
     jquery: ^3.6.0
+    lodash: ^4.17.21
     moment: ^2.29.1
     node-sass: ^6.0.1
+    qunit: ^2.17.2
     requirejs: ^2.3.6
     serve-static: ^1.14.1
-    underscore: ^1.13.1
   languageName: unknown
   linkType: soft
 
